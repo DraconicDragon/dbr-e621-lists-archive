@@ -59,9 +59,11 @@ jobs:
           printf "month_padded=%02d\n" "$month" >> "$GITHUB_OUTPUT"
 
       - name: Run tag list processor
+        env:
+          DANBOORU_USER_ID: ${{ secrets.DANBOORU_USER_ID }}
         run: |
           set -euo pipefail
-          printf '\n\n20\n\n\n\n\ny\n' | python main.py
+          printf '3\n3\n%s\n20\n\ny\n\ny\n\n\ny\n' "$DANBOORU_USER_ID" | python main.py
         working-directory: tag-list-processor
 
       # ALWAYS run this step (Upload Artifacts)
